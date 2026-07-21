@@ -63,7 +63,7 @@ export const HeroSection: FC = () => {
           <div className="hero-section__image-frame">
             <img
               src={WEDDING_CONFIG.assets.couple.heroNamaste}
-              alt={`${WEDDING_CONFIG.couple.groom.name.en} and ${WEDDING_CONFIG.couple.bride.name.en} - Wedding heroes`}
+              alt={t('imageAlt', 'hero')}
               className="hero-section__image"
               width={600}
               height={750}

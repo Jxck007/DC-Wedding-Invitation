@@ -9,6 +9,7 @@ export const SiteHeader: FC = () => {
   const { t, language } = useLanguage();
   const [open, setOpen] = useState(false);
   const [navVisible, setNavVisible] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
   const lastScrollY = useRef(0);
   const links = [
     ['home', '#home'], ['story', '#story'], ['events', '#events'], ['venue', '#venue'], ['blessings', '#blessings'],
@@ -16,6 +17,7 @@ export const SiteHeader: FC = () => {
   useEffect(() => {
     const onScroll = () => {
       const currentY = window.scrollY;
+      setScrolled(currentY > 12);
       setNavVisible(currentY < 120 || currentY < lastScrollY.current);
       lastScrollY.current = currentY;
     };
@@ -23,7 +25,7 @@ export const SiteHeader: FC = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
   return (
-    <header className="site-header" onPointerEnter={() => setNavVisible(true)} onFocusCapture={() => setNavVisible(true)}>
+    <header className={`site-header ${scrolled ? 'site-header--scrolled' : ''}`} onPointerEnter={() => setNavVisible(true)} onFocusCapture={() => setNavVisible(true)}>
       <a className="site-header__monogram" href="#home" aria-label={t('navigation', 'home')}>{WEDDING_CONFIG.monogram[language]}</a>
       <div className="site-header__actions site-header__actions--visible">
       <nav className={`site-header__nav ${open ? 'site-header__nav--open' : ''} ${!navVisible && !open ? 'site-header__nav--hidden' : ''}`} aria-label={t('accessibility', 'primaryNavigation')}>

@@ -44,15 +44,13 @@ export const BrideSection: FC = () => {
           <div className="bride-section__image-frame">
             <img
               src={WEDDING_CONFIG.assets.couple.brideSolo}
-              alt={WEDDING_CONFIG.couple.bride.name.en}
+              alt={t('imageAlt', 'bride')}
               className="bride-section__image"
               width={500}
               height={650}
               loading="lazy"
             />
           </div>
-          {/* Decorative floral element */}
-          <img src={WEDDING_CONFIG.assets.icons.garland} alt="" className="bride-section__floral" aria-hidden="true" />
         </div>
 
         {/* Content */}

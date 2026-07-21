@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type FC } from 'react';
+import { useEffect, useState, type FC } from 'react';
 import { useTranslation } from '../hooks/useLanguage';
 
 type EventKey = 'reception' | 'wedding';
@@ -6,7 +6,7 @@ type TimeLeft = { days: number; hours: number; minutes: number; seconds: number 
 const EVENTS = { reception: new Date('2026-08-22T18:30:00+05:30'), wedding: new Date('2026-08-23T09:00:00+05:30') };
 const WEDDING_END = new Date('2026-08-23T10:00:00+05:30');
 const empty: TimeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 };
-const getTimeLeft = (target: Date): TimeLeft => { const diff = target.getTime() - Date.now(); return diff <= 0 ? empty : { days: Math.floor(diff / 86400000), hours: Math.floor(diff / 3600000 % 24), minutes: Math.floor(diff / 60000 % 60), seconds: Math.floor(diff / 1000 % 60) }; };
+const getTimeLeft = (target: Date, now: number): TimeLeft => { const diff = target.getTime() - now; return diff <= 0 ? empty : { days: Math.floor(diff / 86400000), hours: Math.floor(diff / 3600000 % 24), minutes: Math.floor(diff / 60000 % 60), seconds: Math.floor(diff / 1000 % 60) }; };
 
 export const Countdown: FC = () => {
   const { t } = useTranslation('countdown');
@@ -16,7 +16,7 @@ export const Countdown: FC = () => {
   useEffect(() => { const timer = window.setInterval(() => setNow(Date.now()), 1000); return () => window.clearInterval(timer); }, []);
   useEffect(() => { if (now >= EVENTS.reception.getTime() && now < WEDDING_END.getTime()) setSelected('wedding'); }, [now]);
   const justMarried = now >= WEDDING_END.getTime();
-  const timeLeft = useMemo(() => getTimeLeft(EVENTS[selected]), [selected, now]);
+  const timeLeft = getTimeLeft(EVENTS[selected], now);
   const receptionComplete = selected === 'reception' && now >= EVENTS.reception.getTime();
   if (justMarried) return <div className="countdown countdown--past"><p className="countdown__celebrated">{t('justMarried')}</p></div>;
   return <div className="countdown">

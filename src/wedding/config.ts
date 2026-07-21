@@ -1,7 +1,7 @@
 export const WEDDING_CONFIG = {
   couple: {
     groom: { name: { en: 'Dinesh Kumar', ta: 'தினேஷ் குமார்' }, initial: 'D' },
-    bride: { name: { en: 'Charumithraa', ta: 'சாருமித்ரா' }, initial: 'C' },
+    bride: { name: { en: 'Charumithaa', ta: 'சாருமிதா' }, initial: 'C' },
   },
   monogram: { en: 'D·C', ta: 'தி·சா' },
   venue: {
@@ -31,23 +31,32 @@ export const WEDDING_CONFIG = {
     },
   },
   calendar: {
-    title: { en: 'Dinesh & Charumithraa Wedding', ta: 'தினேஷ் & சாருமித்ரா திருமணம்' },
+    title: { en: 'Dinesh & Charumithaa Wedding', ta: 'தினேஷ் & சாருமிதா திருமணம்' },
     description: { en: 'We invite you to join us in celebrating our wedding.', ta: 'எங்கள் திருமண விழாவில் கலந்துகொள்ள அன்புடன் அழைக்கிறோம்.' },
   },
   countdownTarget: '2026-08-23T09:00:00+05:30',
   assets: {
     couple: {
+      // Formal invitation pose; used once in the opening story.
       heroNamaste: '/assets/wedding/couple/hero-namaste.webp',
+      // Individual editorial portraits for the bride and groom sections.
       brideSolo: '/assets/wedding/couple/bride-solo.webp',
       groomSolo: '/assets/wedding/couple/groom-solo.webp',
+      // Supporting reception portrait; intentionally framed because it has a rectangular canvas.
       seated: '/assets/wedding/couple/couple-seated.webp',
+      // Transparent interaction pose for Their Journey and the finale narrative.
       handholding: '/assets/wedding/couple/couple-handholding.webp',
+      // Finale-only celebration pose.
       lift: '/assets/wedding/couple/couple-lift.webp',
+      // Finale closing pose.
       finalClose: '/assets/wedding/couple/couple-final-close.webp',
+      // Alternate formal artwork retained for future use, not duplicated in the current story flow.
       armLinked: '/assets/wedding/couple/couple-arm-linked.webp',
+      // Calm framed portrait reserved for Blessings.
       togetherForever: '/assets/wedding/couple/together-forever-portrait.webp',
     },
     scenes: {
+      // Cinematic finale approach frames.
       runApart: '/assets/wedding/scenes/couple-run-apart.webp',
       runTogether: '/assets/wedding/scenes/couple-run-together.webp',
     },

@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLanguage } from '../hooks/useLanguage';
 import { WEDDING_CONFIG, type EventKey } from '../wedding/config';
+import { Calendar, Clock } from '@phosphor-icons/react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -42,12 +43,15 @@ export const ReceptionDetails: FC = () => {
               <p className="events-section__card-kicker">{event.key === 'reception' ? '01' : '02'}</p>
               <img src={event.key === 'reception' ? WEDDING_CONFIG.assets.icons.reception : WEDDING_CONFIG.assets.icons.mandap} alt="" className="events-section__event-icon" aria-hidden="true" />
               <h3 className={isTamil ? 'events-section__title--ta' : ''}>{event.title}</h3>
-              <div className="events-section__row"><img src={WEDDING_CONFIG.assets.icons.celebration} alt="" /><span>{event.date}</span></div>
-              <div className="events-section__row"><img src={WEDDING_CONFIG.assets.icons.time} alt="" /><span>{event.time}</span></div>
-              <button type="button" className="events-section__calendar" onClick={() => addToCalendar(event.key)}><img src={WEDDING_CONFIG.assets.icons.calendar} alt="" />{event.add}</button>
+              <div className="events-section__row"><Calendar size={19} aria-hidden="true" /><span>{event.date}</span></div>
+              <div className="events-section__row"><Clock size={19} aria-hidden="true" /><span>{event.time}</span></div>
+              <button type="button" className="events-section__calendar" onClick={() => addToCalendar(event.key)}><Calendar size={18} aria-hidden="true" />{event.add}</button>
             </article>
           ))}
         </div>
+        <figure className="events-section__artwork">
+          <img src={WEDDING_CONFIG.assets.couple.seated} alt={t('imageAlt', 'seated')} width={1122} height={1171} loading="lazy" />
+        </figure>
         <p className="events-section__same-venue">{t('events', 'sameVenue')}</p>
       </div>
     </section>

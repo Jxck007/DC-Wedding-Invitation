@@ -1,8 +1,9 @@
 import { type FC, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { LanguageProvider, useLanguage } from './hooks/useLanguage';
-import { AudioProvider } from './hooks/useAudio';
+import { useLanguage } from './hooks/useLanguage';
+import { LanguageProvider } from './providers/LanguageProvider';
+import { AudioProvider } from './providers/AudioProvider';
 import { SiteHeader } from './components/SiteHeader';
 import { IntroCover } from './components/IntroCover';
 import { HeroSection } from './components/HeroSection';

@@ -1,4 +1,4 @@
-import { type FC, useEffect, useRef } from 'react';
+import { type FC, useEffect, useMemo, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLanguage } from '../hooks/useLanguage';
@@ -21,12 +21,12 @@ export const DesktopFinale: FC = () => {
   const { t, language } = useLanguage();
   const reduced = useReducedMotion();
   const isTamil = language === 'ta';
-  const frames: FinaleFrame[] = [
-    { src: WEDDING_CONFIG.assets.scenes.runTogether, xPercent: -50, yPx: 14, scale: .98, opacityStart: .25, alt: 'Dinesh and Charumithraa coming together' },
-    { src: WEDDING_CONFIG.assets.couple.handholding, xPercent: -50, yPx: 10, scale: 1, opacityStart: 0, alt: 'Dinesh and Charumithraa holding hands' },
-    { src: WEDDING_CONFIG.assets.couple.lift, xPercent: -50, yPx: 18, scale: .97, opacityStart: 0, alt: 'Dinesh and Charumithraa celebrating together' },
-    { src: WEDDING_CONFIG.assets.couple.finalClose, xPercent: -50, yPx: 16, scale: .99, opacityStart: 0, alt: 'Dinesh and Charumithraa together' },
-  ];
+  const frames = useMemo<FinaleFrame[]>(() => [
+    { src: WEDDING_CONFIG.assets.scenes.runTogether, xPercent: -50, yPx: 14, scale: .98, opacityStart: .25, alt: t('imageAlt', 'approach') },
+    { src: WEDDING_CONFIG.assets.couple.handholding, xPercent: -50, yPx: 10, scale: 1, opacityStart: 0, alt: t('imageAlt', 'journey') },
+    { src: WEDDING_CONFIG.assets.couple.lift, xPercent: -50, yPx: 18, scale: .97, opacityStart: 0, alt: t('imageAlt', 'lift') },
+    { src: WEDDING_CONFIG.assets.couple.finalClose, xPercent: -50, yPx: 16, scale: .99, opacityStart: 0, alt: t('imageAlt', 'final') },
+  ], [t]);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -77,7 +77,7 @@ export const DesktopFinale: FC = () => {
         .to([artwork, message], { y: -8, duration: .1 }, .9);
     }), section);
     return () => { ctx.revert(); mm.revert(); };
-  }, [reduced]);
+  }, [reduced, frames]);
 
   return <section ref={sectionRef} className={`finale-section ${reduced ? 'finale-section--reduced' : ''}`} aria-label={t('finale', 'message')}>
     <div className="finale-stage">

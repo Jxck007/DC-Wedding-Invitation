@@ -57,7 +57,7 @@ export const GroomSection: FC = () => {
           <div className="groom-section__image-frame">
             <img
               src={WEDDING_CONFIG.assets.couple.groomSolo}
-              alt={WEDDING_CONFIG.couple.groom.name.en}
+              alt={t('imageAlt', 'groom')}
               className="groom-section__image"
               width={500}
               height={650}

@@ -41,8 +41,8 @@ export const BlessingMessage: FC = () => {
       <div className="blessing-section__container">
         <div className="blessing-section__image-wrapper">
           <img
-            src={WEDDING_CONFIG.assets.couple.finalClose}
-            alt={`${WEDDING_CONFIG.couple.groom.name.en} and ${WEDDING_CONFIG.couple.bride.name.en} - a blessed moment`}
+            src={WEDDING_CONFIG.assets.couple.togetherForever}
+            alt={t('imageAlt', 'blessing')}
             className="blessing-section__image"
             width={500}
             height={600}

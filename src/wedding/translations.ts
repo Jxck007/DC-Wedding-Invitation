@@ -16,6 +16,7 @@ export const translations = {
     finale: { message: 'Together is our favourite place to be.', wish: 'Every beautiful beginning deserves the warmth of family, friends and blessings.', venue1: 'Reception · Saturday, 22 August 2026', venue2: 'Wedding · Sunday, 23 August 2026' },
     music: { play: 'Play music', pause: 'Pause music', unavailable: 'Music unavailable', loading: 'Music loading' },
     footer: { gratitude: 'Thank you for being part of our celebration. Your presence and blessings mean the world to us.', venue: 'M.P. Wedding & Convention Hall', date: '22–23 August 2026 · Chennai' },
+    imageAlt: { hero: 'Dinesh Kumar and Charumithaa in traditional wedding attire', bride: 'Charumithaa in traditional bridal attire', groom: 'Dinesh Kumar in traditional wedding attire', journey: 'Dinesh Kumar and Charumithaa holding hands', seated: 'The couple seated together during their wedding celebration', blessing: 'Dinesh Kumar and Charumithaa together in a quiet portrait', approach: 'Dinesh Kumar and Charumithaa coming together', lift: 'Dinesh Kumar and Charumithaa celebrating together', final: 'Dinesh Kumar and Charumithaa together' },
     accessibility: { language: 'Language', music: 'Music', primaryNavigation: 'Primary navigation', openMenu: 'Open menu', closeMenu: 'Close menu', switchToTamil: 'Switch to Tamil', switchToEnglish: 'Switch to English' },
   },
   ta: {
@@ -35,6 +36,7 @@ export const translations = {
     finale: { message: 'ஒன்றாக இருப்பதே எங்களுக்கு இனிய இடம்.', wish: 'ஒவ்வொரு அழகிய தொடக்கத்திற்கும் குடும்பத்தின் அன்பும் நண்பர்களின் மகிழ்ச்சியும் ஆசீர்வாதங்களின் அரவணைப்பும் தேவை.', venue1: 'வரவேற்பு · சனிக்கிழமை, 22 ஆகஸ்ட் 2026', venue2: 'திருமணம் · ஞாயிற்றுக்கிழமை, 23 ஆகஸ்ட் 2026' },
     music: { play: 'இசையை இயக்கவும்', pause: 'இசையை நிறுத்தவும்', unavailable: 'இசை கிடைக்கவில்லை', loading: 'இசை ஏற்றப்படுகிறது' },
     footer: { gratitude: 'எங்கள் மகிழ்ச்சியில் பங்கெடுப்பதற்கு நன்றி. தங்களின் வருகையும் ஆசீர்வாதமும் எங்களுக்கு பேரானந்தம்.', venue: 'எம்.பி. வெட்டிங் & கன்வென்ஷன் ஹால்', date: '22–23 ஆகஸ்ட் 2026 · சென்னை' },
+    imageAlt: { hero: 'பாரம்பரிய திருமண உடையில் தினேஷ் குமார் மற்றும் சாருமிதா', bride: 'பாரம்பரிய மணமகள் அலங்காரத்தில் சாருமிதா', groom: 'பாரம்பரிய திருமண உடையில் தினேஷ் குமார்', journey: 'கைகளை இணைத்திருக்கும் தினேஷ் குமார் மற்றும் சாருமிதா', seated: 'திருமணக் கொண்டாட்டத்தில் ஒன்றாக அமர்ந்திருக்கும் மணமக்கள்', blessing: 'அமைதியான உருவப்படத்தில் தினேஷ் குமார் மற்றும் சாருமிதா', approach: 'ஒன்றாக இணையும் தினேஷ் குமார் மற்றும் சாருமிதா', lift: 'ஒன்றாக மகிழ்ச்சியைக் கொண்டாடும் தினேஷ் குமார் மற்றும் சாருமிதா', final: 'ஒன்றாக இருக்கும் தினேஷ் குமார் மற்றும் சாருமிதா' },
     accessibility: { language: 'மொழி', music: 'இசை', primaryNavigation: 'முதன்மை வழிசெலுத்தல்', openMenu: 'பட்டியலைத் திறக்க', closeMenu: 'பட்டியலை மூட', switchToTamil: 'தமிழுக்கு மாற்று', switchToEnglish: 'ஆங்கிலத்திற்கு மாற்று' },
   },
 } as const;
