@@ -12,7 +12,6 @@ export const IntroCover: FC = () => {
   const { t, language } = useLanguage();
   const reduced = useReducedMotion();
   const isTamil = language === 'ta';
-  useMobileReveal(coverRef, ['.intro-cover__invitation'], true);
 
   useEffect(() => {
     const el = coverRef.current;
@@ -45,10 +44,21 @@ export const IntroCover: FC = () => {
           .to('.intro-cover__names', { y: -8, duration: .35, ease: 'none' }, .3)
           .to('.intro-cover__invitation', { y: -16, duration: .35, ease: 'none' }, .65);
       });
+
+      mm.add('(max-width: 1023px)', () => {
+        const desktopTargets = el.querySelectorAll<HTMLElement>(
+          '.intro-cover__content, .intro-cover__arch, .intro-cover__stage, .intro-cover__halo, .intro-cover__petals, .intro-cover__frame, .intro-cover__names',
+        );
+        gsap.set(desktopTargets, {
+          clearProps: 'transform,opacity,visibility,position,top,right,bottom,left,width,height',
+        });
+      });
     }, el);
 
     return () => { ctx.revert(); mm.revert(); };
   }, [reduced]);
+
+  useMobileReveal(coverRef, ['.intro-cover__invitation'], true);
 
   return (
     <section ref={coverRef} id="home" className="intro-cover" aria-label={t('navigation', 'home')}>

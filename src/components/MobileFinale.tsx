@@ -46,14 +46,18 @@ export const MobileFinale: FC = () => {
         const arch = section.querySelector('.mobile-finale__arch');
         const petals = section.querySelector('.mobile-finale__petals');
         const copy = section.querySelector('.mobile-finale__copy');
-        if (!validFrames.length || !arch || !petals || !copy) return;
+        if (!validFrames.length || !ready[0] || !arch || !petals || !copy) return;
 
         allFrames.forEach((frame, index) => {
-          frame.hidden = !ready[index];
+          frame.dataset.failed = ready[index] ? 'false' : 'true';
+          frame.setAttribute('aria-hidden', ready[index] ? 'false' : 'true');
           gsap.set(frame, {
             clearProps: 'transform,opacity,visibility,width,height,top,left,right,bottom',
           });
-          if (!ready[index]) return;
+          if (!ready[index]) {
+            gsap.set(frame, { autoAlpha: 0 });
+            return;
+          }
           const config = finaleFrames[index].mobile;
           gsap.set(frame, {
             xPercent: config.xPercent,
@@ -91,8 +95,8 @@ export const MobileFinale: FC = () => {
         validFrames.slice(1).forEach((frame, position) => {
           const previous = validFrames[position];
           const at = transitionStarts[position] ?? .64;
-          timeline.to(previous, { autoAlpha: 0, duration: .06 }, at)
-            .to(frame, { autoAlpha: 1, duration: .06 }, at + .06);
+          timeline.to(previous, { autoAlpha: 0, duration: .1 }, at)
+            .to(frame, { autoAlpha: 1, duration: .1 }, at);
         });
 
         timeline.to(arch, { opacity: .17, duration: .18 }, .82)
@@ -105,6 +109,15 @@ export const MobileFinale: FC = () => {
           timeline.kill();
         };
       }), section);
+
+      mm.add('(min-width: 1024px)', () => {
+        const mobileTargets = section.querySelectorAll<HTMLElement>(
+          '.mobile-finale__frame, .mobile-finale__copy, .mobile-finale__arch, .mobile-finale__petals',
+        );
+        gsap.set(mobileTargets, {
+          clearProps: 'transform,opacity,visibility,position,top,right,bottom,left,width,height',
+        });
+      });
     });
 
     return () => {
@@ -129,8 +142,15 @@ export const MobileFinale: FC = () => {
           alt={t('imageAlt', frame.altKey)}
           className="mobile-finale__frame"
           data-frame={index}
-          loading={index === 0 ? 'eager' : 'lazy'}
-          onError={(event) => { event.currentTarget.hidden = true; }}
+          loading="eager"
+          decoding="async"
+          fetchPriority={index === 0 ? 'high' : 'auto'}
+          onError={(event) => {
+            event.currentTarget.dataset.failed = 'true';
+            event.currentTarget.setAttribute('aria-hidden', 'true');
+            event.currentTarget.style.opacity = '0';
+            event.currentTarget.style.visibility = 'hidden';
+          }}
         />)}
         <img src={WEDDING_CONFIG.assets.icons.petalDivider} alt="" className="mobile-finale__petals" aria-hidden="true" />
       </div>

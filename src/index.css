@@ -151,6 +151,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.05}
 .venue-section__map-art::before{content:'';position:absolute;inset:16px;border:1px solid var(--gold);border-radius:50%;opacity:.55}
 .venue-section__route{position:absolute;width:120px;height:70px;border-top:1px dashed var(--gold);border-radius:50%;transform:rotate(-18deg)}
 .venue-section__address{padding-top:24px;color:var(--muted);font:1.25rem/1.7 var(--serif)}
+.venue-section__address--mobile{display:none}
 
 .venue-actions{display:flex;flex-wrap:wrap;gap:9px}
 .venue-actions__btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:9px 14px;border:1px solid var(--gold);color:var(--wine);font-size:.72rem;transition:background .25s,transform .25s}
@@ -283,6 +284,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.05}
 .journey-stage__subtitle{margin-top:10px;color:var(--green);font:1.08rem/1.35 var(--serif)}
 .journey-stage__description{margin:15px auto 0;color:var(--muted);font:1.02rem/1.55 var(--serif)}
 .journey-stage__knot{width:30px;height:30px;object-fit:contain;margin:18px auto 0}
+.journey-stage__heart{display:none}
 .journey-section__header,.journey-section__vine,.journey-section__panels,.journey-section__footer{display:none}
 
 
@@ -403,7 +405,7 @@ to{opacity:1}
 
 
 /* Scroll-led invitation and softened section hand-offs */
-@media(min-width:768px){.intro-cover{min-height:240vh}
+@media(min-width:1024px){.intro-cover{min-height:240vh}
 .intro-cover__content{min-height:100svh}
 .intro-cover__stage{transform:scale(1.025)}
 .intro-cover__content::after{content:'';position:absolute;right:0;bottom:-1px;left:0;height:96px;background:linear-gradient(transparent,var(--paper));pointer-events:none}
@@ -624,20 +626,21 @@ to{opacity:1}
 .blessing-section__image{width:min(90vw,520px);height:auto;margin-inline:auto;object-fit:contain;object-position:center bottom}
 .finale-desktop-only,.finale-section{display:none}
 .finale-mobile-only,.mobile-finale{display:block;margin:0}
-.mobile-finale{position:relative;height:300svh;min-height:2200px;padding:0;background:var(--wine-dark)}
+.mobile-finale{position:relative;height:300svh;min-height:0;padding:0;background:var(--wine-dark)}
 .mobile-finale__stage{position:sticky;top:0;isolation:isolate;display:grid;grid-template-rows:auto 1fr;width:100%;height:100svh;height:100dvh;min-height:0;padding:0;overflow:hidden;background:var(--ivory)}
 .mobile-finale__texture{position:absolute;z-index:-2;inset:0;width:100%;height:100%;object-fit:cover;opacity:.28;pointer-events:none}
-.mobile-finale__copy{position:relative;z-index:10;width:min(calc(100% - 40px),390px);margin-inline:auto;padding-top:calc(78px + env(safe-area-inset-top));text-align:center;pointer-events:none}
+.mobile-finale__copy{position:relative;z-index:10;width:min(calc(100% - 40px),390px);max-height:31svh;margin-inline:auto;padding-top:calc(72px + env(safe-area-inset-top));padding-bottom:12px;text-align:center;pointer-events:none}
 .mobile-finale__title{max-width:360px;margin:0 auto;color:var(--wine-dark);font-size:clamp(2.05rem,9vw,3rem);line-height:1.06}
 .mobile-finale__body{max-width:340px;margin:12px auto 0;color:var(--muted);font:clamp(.92rem,3.8vw,1.04rem)/1.6 var(--serif)}
 .mobile-finale__title--ta{font-size:clamp(1.72rem,7.4vw,2.5rem);line-height:1.32;letter-spacing:normal}
 .mobile-finale__body--ta{line-height:1.72;letter-spacing:normal}
 .mobile-finale__artwork{position:relative;z-index:2;min-height:0;overflow:hidden}
-.mobile-finale__frame{position:absolute;z-index:3;left:50%;bottom:max(24px,env(safe-area-inset-bottom));width:min(84vw,430px);height:auto;max-height:61svh;object-fit:contain;object-position:center bottom;opacity:0;visibility:hidden;transform:translateX(-50%);transform-origin:50% 100%;will-change:transform,opacity}
+.mobile-finale__frame{position:absolute;z-index:3;left:50%;bottom:max(22px,env(safe-area-inset-bottom));width:auto;max-width:none;height:min(58svh,520px);max-height:calc(100% - 12px);object-fit:contain;object-position:center bottom;opacity:0;visibility:hidden;transform:none;transform-origin:50% 100%;will-change:transform,opacity}
 .mobile-finale__frame[data-frame="0"]{opacity:1;visibility:visible}
 .mobile-finale__frame[data-frame="0"],.mobile-finale__frame[data-frame="3"]{mix-blend-mode:multiply}
 .mobile-finale__arch{position:absolute;z-index:1;left:50%;bottom:44px;width:min(72vw,360px);max-height:50svh;object-fit:contain;object-position:center bottom;opacity:.12;transform:translateX(-50%) translateY(-18px);-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 62%,rgba(0,0,0,.65) 75%,transparent 91%);mask-image:linear-gradient(to bottom,#000 0%,#000 62%,rgba(0,0,0,.65) 75%,transparent 91%);pointer-events:none}
 .mobile-finale__petals{position:absolute;z-index:4;right:6%;bottom:18%;width:min(18vw,76px);height:auto;opacity:.16;pointer-events:none}
+.mobile-finale::after{content:'';position:absolute;z-index:12;right:0;bottom:0;left:0;height:clamp(88px,14svh,140px);background:linear-gradient(to bottom,transparent,var(--wine-dark));pointer-events:none}
 .floral-divider{max-height:64px;padding-block:12px 16px}
 .floral-divider__image{width:clamp(42px,12vw,76px)}
 }
@@ -699,8 +702,8 @@ to{opacity:1}
 .finale-mobile-only,.mobile-finale{display:block!important}
 .mobile-finale{height:auto!important;min-height:auto!important}
 .mobile-finale__stage{position:relative!important;height:auto!important;min-height:100svh!important;grid-template-rows:auto minmax(420px,1fr)!important}
-.mobile-finale__frame{display:none!important;opacity:0!important;visibility:hidden!important;transform:translateX(-50%)!important}
-.mobile-finale__frame[data-frame="3"]{display:block!important;opacity:1!important;visibility:visible!important}
+.mobile-finale__frame{opacity:0!important;visibility:hidden!important;transform:translateX(-50%)!important}
+.mobile-finale__frame[data-frame="3"]{opacity:1!important;visibility:visible!important}
 .mobile-finale__petals{display:none!important}
 .intro-cover__invitation,.journey-stage__art,.journey-stage__copy,.venue-section__content,.venue-section__map,.blessing-section__content{opacity:1!important;transform:none!important}
 .intro-cover__petals{display:none}
@@ -708,34 +711,110 @@ to{opacity:1}
 
 /* Focused mobile and tablet polish. Desktop rules above remain unchanged. */
 @media(max-width:1023px){
-.site-header{position:sticky;inset:auto;top:0;z-index:100;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;min-height:58px;padding:max(8px,env(safe-area-inset-top)) clamp(14px,3vw,18px) 8px;background:rgba(248,244,236,.92);border-bottom:1px solid rgba(185,148,69,.16);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);pointer-events:auto}
-.site-header__monogram{align-self:center;line-height:40px}
-.site-header__actions{position:static;display:grid;grid-template-columns:minmax(0,1fr) auto;justify-self:end;align-items:center;gap:0;width:auto;max-width:100%;opacity:1;transform:none;pointer-events:auto}
-.site-header__controls{grid-column:2;grid-row:1;justify-self:end;height:40px;gap:6px}
+.site-header{position:sticky;inset:auto;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;min-height:58px;padding:max(8px,env(safe-area-inset-top)) 14px 8px;background:rgba(250,246,238,.94);border-bottom:1px solid rgba(185,148,69,.16);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);pointer-events:auto}
+.site-header--menu-open{margin-bottom:258px}
+.site-header__monogram{align-self:center;font-size:.9rem;line-height:1;letter-spacing:.01em;white-space:nowrap}
+.site-header__actions{position:static;display:flex;align-items:center;justify-content:flex-end;gap:0;width:auto;max-width:calc(100% - 46px);opacity:1;transform:none;pointer-events:auto}
+.site-header__controls{display:flex;align-items:center;height:36px;gap:7px}
+.language-switcher{gap:3px;padding:0}
+.language-switcher__emblem,.language-switcher img{width:17px;height:auto;flex-shrink:0}
+.lang-option{padding:3px;font-size:.76rem;line-height:1}
+.music-control,.site-header__menu{width:36px;min-width:36px;height:36px;padding:0;border-radius:50%}
 .site-header__nav{display:none;height:auto}
-.site-header__nav--open{position:static;grid-column:1 / -1;grid-row:2;justify-self:end;display:grid;width:min(82vw,280px);gap:2px;margin:10px 0 4px;padding:12px 14px;border:1px solid rgba(185,148,69,.35);border-radius:12px;background:rgba(250,246,238,.98);box-shadow:0 12px 28px rgba(70,19,35,.12);backdrop-filter:none;-webkit-backdrop-filter:none;opacity:1;transform:none;pointer-events:auto}
-.site-header__nav--open a{display:flex;align-items:center;min-height:42px;padding:9px 10px;border-bottom:1px solid rgba(185,148,69,.12);font-size:.82rem;line-height:1.35;white-space:normal}
+.site-header__nav--open{position:absolute;z-index:1001;top:calc(100% + 6px);right:14px;display:grid;width:min(78vw,270px);height:auto;gap:2px;margin:0;padding:12px;border:1px solid rgba(185,148,69,.3);border-radius:12px;background:rgba(250,246,238,.98);box-shadow:0 12px 30px rgba(70,19,35,.12);backdrop-filter:none;-webkit-backdrop-filter:none;opacity:1;transform:none;pointer-events:auto}
+.site-header__nav--open a{display:flex;align-items:center;min-height:42px;padding:8px 14px;border-bottom:1px solid rgba(185,148,69,.12);font-size:.82rem;line-height:1.35;white-space:normal}
 .site-header__nav--open a:last-child{border-bottom:0}
 [data-language=ta] .site-header__nav--open a{font-size:.8rem;line-height:1.55}
 
+[data-language=en] .intro-cover__names,[data-language=en] .hero-section__names{font-size:clamp(2.7rem,11vw,4.1rem);line-height:.98}
+[data-language=en] .countdown-section__eyebrow,[data-language=en] .bride-section__name,[data-language=en] .groom-section__name,[data-language=en] .journey-stage__title,[data-language=en] .events-section__heading h2,[data-language=en] .venue-section__venue-name,[data-language=en] .blessing-section__title,[data-language=en] .mobile-finale__title{font-size:clamp(2rem,8.7vw,3.1rem);line-height:1.08}
+[data-language=ta] .intro-cover__names,[data-language=ta] .hero-section__names{font-size:clamp(2.15rem,8.8vw,3.35rem);line-height:1.3;letter-spacing:normal}
+[data-language=ta] .countdown-section__eyebrow,[data-language=ta] .bride-section__name,[data-language=ta] .groom-section__name,[data-language=ta] .journey-stage__title,[data-language=ta] .events-section__heading h2,[data-language=ta] .venue-section__venue-name,[data-language=ta] .blessing-section__title,[data-language=ta] .mobile-finale__title{font-size:clamp(1.72rem,7.2vw,2.6rem);line-height:1.36;letter-spacing:normal}
+.app .intro-cover__copy,.app .hero-section__invite,.app .bride-section__description,.app .groom-section__description,.app .bride-section__quote,.app .groom-section__quote,.app .journey-stage__subtitle,.app .journey-stage__description,.app .events-section__row,.app .events-section__same-venue,.app .venue-section__shared,.app .venue-section__address,.app .blessing-section__message,.app .blessing-section__closing,.app .mobile-finale__body,.app .footer__gratitude{font-size:clamp(.96rem,4vw,1.06rem);line-height:1.68}
+.intro-cover__greeting,.bride-section__label,.groom-section__label,.events-section .eyebrow,.venue-section .eyebrow{font-size:.68rem;letter-spacing:.1em}
+[data-language=ta] .intro-cover__greeting,[data-language=ta] .bride-section__label,[data-language=ta] .groom-section__label,[data-language=ta] .events-section .eyebrow,[data-language=ta] .venue-section .eyebrow{letter-spacing:normal;text-transform:none}
+
+.countdown-section,.hero-section,.bride-section,.groom-section,.journey-section,.events-section,.venue-section,.blessing-section{padding-block:clamp(58px,13vw,80px);padding-inline:clamp(18px,5vw,28px)}
+.hero-section__names{margin-bottom:14px}
+.bride-section__name,.groom-section__name{margin-bottom:14px}
+.bride-section__divider,.groom-section__divider{margin:14px 0}
+.journey-stage__subtitle{margin-top:12px}
+.journey-stage__description{margin-top:14px}
+.venue-section__venue-name{margin:14px 0}
+.blessing-section__message{margin:14px 0}
+.hero-section__image-wrapper,.bride-section__image-wrapper,.groom-section__image-wrapper{margin-top:26px}
+.journey-stage__art{margin-top:24px}
+.events-section__artwork{margin-top:28px}
+.venue-section__map{margin-top:26px}
+.blessing-section__content{margin-bottom:0}
+.blessing-section__image-wrapper{margin-top:26px}
+.floral-divider{display:none}
+.groom-section{border-top:1px solid rgba(185,148,69,.12)}
+
+.bride-section,.groom-section{min-height:auto}
+.bride-section__container,.groom-section__container{display:flex;flex-direction:column;min-height:auto}
+.bride-section__content,.groom-section__content{order:1;display:flex;flex-direction:column;width:100%}
+.bride-section__divider,.groom-section__divider{display:none}
+.bride-section__image-wrapper,.groom-section__image-wrapper{order:2;display:flex;width:100%;align-items:flex-end;justify-content:center;overflow:visible}
 .bride-section__image-wrapper{margin-top:26px}
-.groom-section__image-wrapper{margin-top:32px}
-.bride-section__image-frame,.groom-section__image-frame{display:flex;align-items:flex-end;justify-content:center;overflow:visible}
-.wedding-artwork--bride{--artwork-scale:.96;--artwork-y:0px;--artwork-max-height:500px;--artwork-max-width:min(78vw,390px)}
-.wedding-artwork--groom{--artwork-scale:1;--artwork-y:0px;--artwork-max-height:520px;--artwork-max-width:min(92vw,410px)}
-.wedding-artwork .bride-section__image,.wedding-artwork .groom-section__image{object-fit:contain;object-position:center bottom}
+.groom-section__image-wrapper{margin-top:36px}
+.bride-section__image-frame,.groom-section__image-frame{display:flex;width:100%;align-items:flex-end;justify-content:center;overflow:visible}
+.groom-section__image-frame{padding-top:32px}
+.wedding-artwork--bride{--artwork-scale:.9;--artwork-y:0px;--artwork-max-height:500px;--artwork-max-width:min(76vw,390px)}
+.wedding-artwork--groom{--artwork-scale:1.08;--artwork-y:0px;--artwork-max-height:540px;--artwork-max-width:min(86vw,440px)}
+.wedding-artwork .bride-section__image,.wedding-artwork .groom-section__image{width:var(--artwork-max-width);height:auto;max-width:100%;max-height:var(--artwork-max-height);object-fit:contain;object-position:center bottom;transform:translateY(var(--artwork-y)) scale(var(--artwork-scale));transform-origin:center bottom}
 .groom-section__leaf{display:none}
 
-.mobile-finale__copy{padding-bottom:14px}
+.journey-section{min-height:auto;overflow:hidden}
+.journey-stage{display:flex;flex-direction:column;min-height:auto;height:auto;padding:0;overflow:visible}
+.journey-stage::before,.journey-stage__path,.journey-stage__line{content:none;display:none}
+.journey-stage__copy{order:1;display:flex;flex-direction:column;align-items:center;width:100%;max-width:34rem;margin-inline:auto;padding:0;text-align:center}
+.journey-stage__ornament{position:static;display:flex;align-items:center;justify-content:center;width:auto;height:auto;margin:18px auto 0;padding:0;border:0;background:transparent;transform:none}
+.journey-stage__knot{display:none}
+.journey-stage__heart{display:block;width:20px;height:20px;color:var(--gold)}
+.journey-stage__art{order:2;display:flex;align-items:flex-end;justify-content:center;width:100%;max-width:none;height:auto;margin:22px 0 0;padding:0;overflow:visible}
+.journey-stage__image{width:min(90vw,500px);height:auto;max-width:100%;object-fit:contain;object-position:center bottom;transform:none}
+
+.events-section__container{display:flex;flex-direction:column}
+.events-section__heading{order:1}
+.events-section__cards{order:2;grid-template-columns:1fr;gap:18px}
+.events-section__card{height:auto;min-height:0;padding:24px 20px}
+.events-section__same-venue{order:3}
+.events-section__artwork{order:4;width:min(90vw,440px);height:auto;min-height:0;margin:22px auto 0}
+.events-section__artwork img{width:100%;height:auto;object-fit:contain;object-position:center bottom}
+
+.venue-section__container{display:grid;grid-template-columns:1fr;gap:0}
+.venue-section__content{order:1;width:100%;max-width:34rem}
+.venue-section__address--mobile{display:block;margin:0;padding:0;color:var(--muted)}
+.venue-section__address--desktop{display:none}
+.venue-section__shared{margin:14px 0 0}
+.venue-actions{display:grid;grid-template-columns:1fr;gap:10px;width:100%;margin-top:18px}
+.venue-actions__btn{width:100%;min-height:44px;padding-inline:14px;gap:8px;font-size:.84rem}
+.venue-section__map{order:2;width:100%;min-height:auto;margin-top:24px;padding:24px 18px}
+.venue-section__map-art{width:min(58vw,220px);height:190px}
+
+.blessing-section__container{display:flex;flex-direction:column;min-height:auto}
+.blessing-section__content{order:1;width:100%;margin-bottom:0}
+.blessing-section__image-wrapper{order:2;width:100%;height:auto;margin:18px auto 0}
+.blessing-section__image{width:min(90vw,500px);height:auto;max-width:100%;margin-inline:auto;object-fit:contain;object-position:center bottom}
+
+.mobile-finale__stage{grid-template-rows:minmax(0,31svh) minmax(0,1fr)}
+.mobile-finale__copy{max-height:31svh;padding-bottom:12px}
 .mobile-finale__artwork{overflow:hidden}
-.mobile-finale__frame{bottom:max(22px,env(safe-area-inset-bottom));width:auto;max-width:none;height:min(56svh,520px);max-height:calc(100% - 12px);object-fit:contain;object-position:center bottom;transform:none}
-[data-language=ta] .mobile-finale__copy{width:min(calc(100% - 48px),360px);padding-top:calc(72px + env(safe-area-inset-top));padding-bottom:16px}
-[data-language=ta] .mobile-finale__title{max-width:330px}
-[data-language=ta] .mobile-finale__body{max-width:320px;margin-top:10px;font-size:clamp(.86rem,3.45vw,.98rem);line-height:1.65}
-[data-language=ta] .mobile-finale__frame{height:min(54svh,500px);max-height:calc(100% - 10px)}
+.mobile-finale__frame{bottom:max(22px,env(safe-area-inset-bottom));width:auto;max-width:none;height:min(58svh,520px);max-height:calc(100% - 12px);object-fit:contain;object-position:center bottom}
+[data-language=ta] .mobile-finale__stage{grid-template-rows:minmax(0,35svh) minmax(0,1fr)}
+[data-language=ta] .mobile-finale__copy{width:min(calc(100% - 48px),360px);max-height:35svh;padding-top:calc(64px + env(safe-area-inset-top));padding-bottom:14px}
+[data-language=ta] .mobile-finale__title{max-width:330px;font-size:clamp(1.68rem,7vw,2.45rem);line-height:1.32;letter-spacing:normal}
+[data-language=ta] .mobile-finale__body{max-width:320px;margin-top:10px;font-size:clamp(.92rem,3.7vw,1.02rem);line-height:1.64}
+[data-language=ta] .mobile-finale__frame{height:min(55svh,500px);max-height:calc(100% - 10px)}
+}
+
+@media(min-width:600px) and (max-width:1023px){
+.venue-actions{grid-template-columns:repeat(2,1fr)}
 }
 
 @media(max-width:430px){
-.site-header__controls{gap:3px}
-.site-header__nav--open{width:min(82vw,270px)}
+.site-header__controls{gap:5px}
+.language-switcher{gap:2px}
+.language-switcher__emblem,.language-switcher img{width:16px}
 }

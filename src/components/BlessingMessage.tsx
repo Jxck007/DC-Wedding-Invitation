@@ -12,7 +12,7 @@ export const BlessingMessage: FC = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const { t, language } = useLanguage();
   const isTamil = language === 'ta';
-  useMobileReveal(sectionRef, ['.blessing-section__content > *', '.blessing-section__image-wrapper']);
+  useMobileReveal(sectionRef, ['.blessing-section__content > *', '.blessing-section__image-wrapper'], false, 'top 90%', true);
 
   useEffect(() => {
     const section = sectionRef.current;

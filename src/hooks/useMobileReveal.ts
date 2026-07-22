@@ -1,6 +1,9 @@
 import { type RefObject, useEffect } from 'react';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useReducedMotion } from './useReducedMotion';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const DESKTOP_INLINE_PROPS = 'transform,opacity,visibility,position,top,left,right,bottom,width,height';
 
@@ -9,6 +12,7 @@ export function useMobileReveal(
   selectors: readonly string[],
   immediate = false,
   start = 'top 90%',
+  animate = false,
 ): void {
   const reduced = useReducedMotion();
   const selectorKey = selectors.join('|');
@@ -28,36 +32,25 @@ export function useMobileReveal(
         if (!elements.length) return;
 
         gsap.set(elements, { clearProps: DESKTOP_INLINE_PROPS });
-        if (reduced) return;
+        if (!animate || reduced) return;
 
-        const reveal = {
+        const tweens = groups.map((group) => gsap.fromTo(group, {
+          autoAlpha: 0,
+          y: 14,
+        }, {
           autoAlpha: 1,
           y: 0,
-          duration: immediate ? 0.55 : 0.62,
-          stagger: 0.08,
+          duration: 0.55,
           ease: 'power2.out',
           clearProps: 'transform,opacity,visibility',
-        } as const;
+          scrollTrigger: {
+            trigger: group[0],
+            start,
+            once: true,
+          },
+        }));
 
-        if (immediate) {
-          gsap.fromTo(elements, { autoAlpha: 0, y: 12 }, reveal);
-          return;
-        }
-
-        const startPercent = Number.parseFloat(start.match(/(\d+)%/)?.[1] ?? '90');
-        const bottomMargin = Math.min(18, Math.max(4, 100 - startPercent));
-        const observers = groups.map((group) => {
-          gsap.set(group, { autoAlpha: 0, y: 14 });
-          const observer = new IntersectionObserver(([entry]) => {
-            if (!entry.isIntersecting) return;
-            gsap.to(group, reveal);
-            observer.disconnect();
-          }, { rootMargin: `0px 0px -${bottomMargin}% 0px`, threshold: .04 });
-          observer.observe(group[0]);
-          return observer;
-        });
-
-        return () => observers.forEach((observer) => observer.disconnect());
+        return () => tweens.forEach((tween) => tween.kill());
       });
     }, root);
 
@@ -65,5 +58,5 @@ export function useMobileReveal(
       ctx.revert();
       mm.revert();
     };
-  }, [rootRef, selectorKey, immediate, start, reduced]);
+  }, [rootRef, selectorKey, immediate, start, animate, reduced]);
 }

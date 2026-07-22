@@ -18,22 +18,29 @@ export const WeddingDetails: FC = () => {
     const content = contentRef.current;
     if (!section || !content) return;
 
+    const mm = gsap.matchMedia();
     const ctx = gsap.context(() => {
-      gsap.from(content.children, {
-        y: 30,
-        opacity: 0,
-        stagger: 0.15,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
-        },
+      mm.add('(min-width: 1024px)', () => gsap.from(content.children, {
+          y: 30,
+          opacity: 0,
+          stagger: 0.15,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 80%',
+            toggleActions: 'play none none reverse',
+          },
+        }));
+
+      mm.add('(max-width: 1023px)', () => {
+        gsap.set(content.children, {
+          clearProps: 'transform,opacity,visibility,position,top,right,bottom,left,width,height',
+        });
       });
     }, section);
 
-    return () => ctx.revert();
+    return () => { ctx.revert(); mm.revert(); };
   }, []);
 
   const handleAddToCalendar = () => {

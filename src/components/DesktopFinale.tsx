@@ -18,50 +18,61 @@ export const DesktopFinale: FC = () => {
     const section = sectionRef.current;
     if (!section || reduced) return;
     const mm = gsap.matchMedia();
-    const ctx = gsap.context(() => mm.add('(min-width: 1024px)', () => {
-      const stage = section.querySelector('.finale-stage');
-      const artwork = section.querySelector('.finale-stage__artwork');
-      const framesEls = gsap.utils.toArray<HTMLElement>(section.querySelectorAll('.finale-stage__frame'));
-      const message = section.querySelector('.finale-stage__message');
-      const arch = section.querySelector('.finale-stage__arch');
-      const petals = section.querySelector('.finale-stage__petals');
-      if (!stage || !artwork || !message || !arch || !petals) return;
-      framesEls.forEach((frame, index) => gsap.set(frame, {
-        xPercent: finaleFrames[index].desktop.xPercent,
-        y: finaleFrames[index].desktop.yPx,
-        scale: finaleFrames[index].desktop.scale,
-        opacity: finaleFrames[index].desktop.opacityStart,
-        transformOrigin: '50% 100%',
-      }));
-      gsap.set(message, { opacity: 1 });
-      gsap.set(arch, { opacity: .1 });
-      gsap.set(petals, { opacity: .18 });
-      const tl = gsap.timeline({
-        defaults: { ease: 'none' },
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: '+=270%',
-          pin: stage,
-          pinSpacing: true,
-          scrub: .7,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
+    const ctx = gsap.context(() => {
+      mm.add('(min-width: 1024px)', () => {
+        const stage = section.querySelector('.finale-stage');
+        const artwork = section.querySelector('.finale-stage__artwork');
+        const framesEls = gsap.utils.toArray<HTMLElement>(section.querySelectorAll('.finale-stage__frame'));
+        const message = section.querySelector('.finale-stage__message');
+        const arch = section.querySelector('.finale-stage__arch');
+        const petals = section.querySelector('.finale-stage__petals');
+        if (!stage || !artwork || !message || !arch || !petals) return;
+        framesEls.forEach((frame, index) => gsap.set(frame, {
+          xPercent: finaleFrames[index].desktop.xPercent,
+          y: finaleFrames[index].desktop.yPx,
+          scale: finaleFrames[index].desktop.scale,
+          opacity: finaleFrames[index].desktop.opacityStart,
+          transformOrigin: '50% 100%',
+        }));
+        gsap.set(message, { opacity: 1 });
+        gsap.set(arch, { opacity: .1 });
+        gsap.set(petals, { opacity: .18 });
+        const tl = gsap.timeline({
+          defaults: { ease: 'none' },
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: '+=270%',
+            pin: stage,
+            pinSpacing: true,
+            scrub: .7,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        });
+        tl.to(framesEls[0], { opacity: 1, duration: .12 }, 0)
+          .to(framesEls[0], { x: 10, duration: .23 }, .12)
+          .to(arch, { opacity: .19, duration: .23 }, .12)
+          .to(framesEls[0], { opacity: 0, duration: .08 }, .35)
+          .to(framesEls[1], { opacity: 1, duration: .08 }, .35)
+          .to(framesEls[1], { opacity: 0, duration: .08 }, .55)
+          .to(framesEls[2], { opacity: 1, duration: .08 }, .55)
+          .to(petals, { y: -24, opacity: .42, duration: .18 }, .55)
+          .to(framesEls[2], { opacity: 0, duration: .08 }, .73)
+          .to(framesEls[3], { opacity: 1, duration: .08 }, .73)
+          .to(arch, { opacity: .24, duration: .17 }, .73)
+          .to([artwork, message], { y: -8, duration: .1 }, .9);
       });
-      tl.to(framesEls[0], { opacity: 1, duration: .12 }, 0)
-        .to(framesEls[0], { x: 10, duration: .23 }, .12)
-        .to(arch, { opacity: .19, duration: .23 }, .12)
-        .to(framesEls[0], { opacity: 0, duration: .08 }, .35)
-        .to(framesEls[1], { opacity: 1, duration: .08 }, .35)
-        .to(framesEls[1], { opacity: 0, duration: .08 }, .55)
-        .to(framesEls[2], { opacity: 1, duration: .08 }, .55)
-        .to(petals, { y: -24, opacity: .42, duration: .18 }, .55)
-        .to(framesEls[2], { opacity: 0, duration: .08 }, .73)
-        .to(framesEls[3], { opacity: 1, duration: .08 }, .73)
-        .to(arch, { opacity: .24, duration: .17 }, .73)
-        .to([artwork, message], { y: -8, duration: .1 }, .9);
-    }), section);
+
+      mm.add('(max-width: 1023px)', () => {
+        const desktopTargets = section.querySelectorAll<HTMLElement>(
+          '.finale-stage, .finale-stage__artwork, .finale-stage__frame, .finale-stage__message, .finale-stage__arch, .finale-stage__petals',
+        );
+        gsap.set(desktopTargets, {
+          clearProps: 'transform,opacity,visibility,position,top,right,bottom,left,width,height',
+        });
+      });
+    }, section);
     return () => { ctx.revert(); mm.revert(); };
   }, [reduced]);
 

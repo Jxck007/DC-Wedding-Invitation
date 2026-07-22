@@ -12,7 +12,7 @@ export const ReceptionDetails: FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const { t, language } = useLanguage();
   const isTamil = language === 'ta';
-  useMobileReveal(sectionRef, ['.events-section__heading', '.events-section__card', '.events-section__artwork', '.events-section__same-venue']);
+  useMobileReveal(sectionRef, ['.events-section__heading', '.events-section__card', '.events-section__same-venue', '.events-section__artwork'], false, 'top 90%', true);
   useEffect(() => {
     const section = sectionRef.current;
     if (!section || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
