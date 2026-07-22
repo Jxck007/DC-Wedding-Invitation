@@ -3,7 +3,8 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLanguage } from '../hooks/useLanguage';
 import { WEDDING_CONFIG, type EventKey } from '../wedding/config';
-import { Calendar, Clock } from '@phosphor-icons/react';
+import { Calendar } from '@phosphor-icons/react';
+import { useMobileReveal } from '../hooks/useMobileReveal';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,14 +12,16 @@ export const ReceptionDetails: FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const { t, language } = useLanguage();
   const isTamil = language === 'ta';
+  useMobileReveal(sectionRef, ['.events-section__heading', '.events-section__card', '.events-section__artwork', '.events-section__same-venue']);
   useEffect(() => {
     const section = sectionRef.current;
     if (!section || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const ctx = gsap.context(() => gsap.from('.events-section__card, .events-section__same-venue', {
+    const mm = gsap.matchMedia();
+    const ctx = gsap.context(() => mm.add('(min-width: 1024px)', () => gsap.from('.events-section__card, .events-section__same-venue', {
       y: 20, opacity: 0, stagger: .1, duration: .75, ease: 'power2.out',
       scrollTrigger: { trigger: section, start: 'top 84%', once: true },
-    }), section);
-    return () => ctx.revert();
+    })), section);
+    return () => { ctx.revert(); mm.revert(); };
   }, []);
 
   const addToCalendar = (eventKey: EventKey) => {
@@ -43,9 +46,9 @@ export const ReceptionDetails: FC = () => {
               <p className="events-section__card-kicker">{event.key === 'reception' ? '01' : '02'}</p>
               <img src={event.key === 'reception' ? WEDDING_CONFIG.assets.icons.reception : WEDDING_CONFIG.assets.icons.mandap} alt="" className="events-section__event-icon" aria-hidden="true" />
               <h3 className={isTamil ? 'events-section__title--ta' : ''}>{event.title}</h3>
-              <div className="events-section__row"><Calendar size={19} aria-hidden="true" /><span>{event.date}</span></div>
-              <div className="events-section__row"><Clock size={19} aria-hidden="true" /><span>{event.time}</span></div>
-              <button type="button" className="events-section__calendar" onClick={() => addToCalendar(event.key)}><Calendar size={18} aria-hidden="true" />{event.add}</button>
+              <div className="events-section__row"><img src={WEDDING_CONFIG.assets.icons.calendar} alt="" className="events-section__detail-icon" aria-hidden="true" /><span>{event.date}</span></div>
+              <div className="events-section__row"><img src={WEDDING_CONFIG.assets.icons.time} alt="" className="events-section__detail-icon" aria-hidden="true" /><span>{event.time}</span></div>
+              <button type="button" className="events-section__calendar" onClick={() => addToCalendar(event.key)} aria-label={event.key === 'reception' ? t('accessibility', 'addReceptionCalendar') : t('accessibility', 'addWeddingCalendar')}><Calendar size={18} aria-hidden="true" />{event.add}</button>
             </article>
           ))}
         </div>

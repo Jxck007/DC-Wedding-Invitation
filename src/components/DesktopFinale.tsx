@@ -1,32 +1,18 @@
-import { type FC, useEffect, useMemo, useRef } from 'react';
+import { type FC, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLanguage } from '../hooks/useLanguage';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 import { WEDDING_CONFIG } from '../wedding/config';
+import { finaleFrames } from '../wedding/finaleFrames';
 
 gsap.registerPlugin(ScrollTrigger);
-
-type FinaleFrame = {
-  src: string;
-  xPercent: number;
-  yPx: number;
-  scale: number;
-  opacityStart: number;
-  alt: string;
-};
 
 export const DesktopFinale: FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const { t, language } = useLanguage();
   const reduced = useReducedMotion();
   const isTamil = language === 'ta';
-  const frames = useMemo<FinaleFrame[]>(() => [
-    { src: WEDDING_CONFIG.assets.scenes.runTogether, xPercent: -50, yPx: 14, scale: .98, opacityStart: .25, alt: t('imageAlt', 'approach') },
-    { src: WEDDING_CONFIG.assets.couple.handholding, xPercent: -50, yPx: 10, scale: 1, opacityStart: 0, alt: t('imageAlt', 'journey') },
-    { src: WEDDING_CONFIG.assets.couple.lift, xPercent: -50, yPx: 18, scale: .97, opacityStart: 0, alt: t('imageAlt', 'lift') },
-    { src: WEDDING_CONFIG.assets.couple.finalClose, xPercent: -50, yPx: 16, scale: .99, opacityStart: 0, alt: t('imageAlt', 'final') },
-  ], [t]);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -41,10 +27,10 @@ export const DesktopFinale: FC = () => {
       const petals = section.querySelector('.finale-stage__petals');
       if (!stage || !artwork || !message || !arch || !petals) return;
       framesEls.forEach((frame, index) => gsap.set(frame, {
-        xPercent: frames[index].xPercent,
-        y: frames[index].yPx,
-        scale: frames[index].scale,
-        opacity: frames[index].opacityStart,
+        xPercent: finaleFrames[index].desktop.xPercent,
+        y: finaleFrames[index].desktop.yPx,
+        scale: finaleFrames[index].desktop.scale,
+        opacity: finaleFrames[index].desktop.opacityStart,
         transformOrigin: '50% 100%',
       }));
       gsap.set(message, { opacity: 1 });
@@ -77,7 +63,7 @@ export const DesktopFinale: FC = () => {
         .to([artwork, message], { y: -8, duration: .1 }, .9);
     }), section);
     return () => { ctx.revert(); mm.revert(); };
-  }, [reduced, frames]);
+  }, [reduced]);
 
   return <section ref={sectionRef} className={`finale-section ${reduced ? 'finale-section--reduced' : ''}`} aria-label={t('finale', 'message')}>
     <div className="finale-stage">
@@ -85,8 +71,8 @@ export const DesktopFinale: FC = () => {
       <img src={WEDDING_CONFIG.assets.icons.floralArch} alt="" className="finale-stage__arch" aria-hidden="true" />
       <img src={WEDDING_CONFIG.assets.icons.petalDivider} alt="" className="finale-stage__petals" aria-hidden="true" />
       <div className="finale-stage__artwork">
-        {frames.map((frame, index) => <div key={frame.src} className={`finale-stage__frame finale-stage__frame--${index}`}>
-          <img src={frame.src} alt={frame.alt} className="finale-stage__image" loading={index === 0 ? 'eager' : 'lazy'} />
+        {finaleFrames.map((frame, index) => <div key={frame.id} className={`finale-stage__frame finale-stage__frame--${index}`}>
+          <img src={frame.src} alt={t('imageAlt', frame.altKey)} className="finale-stage__image" loading={index === 0 ? 'eager' : 'lazy'} />
         </div>)}
       </div>
       <div className="finale-stage__message"><div className="finale-stage__monogram">{WEDDING_CONFIG.monogram[language]}</div><h2 className={isTamil ? 'finale-stage__title finale-stage__title--ta' : 'finale-stage__title'}>{t('finale', 'message')}</h2><p className={isTamil ? 'finale-stage__copy finale-stage__copy--ta' : 'finale-stage__copy'}>{t('finale', 'wish')}</p></div>

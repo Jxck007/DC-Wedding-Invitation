@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLanguage } from '../hooks/useLanguage';
 import { WEDDING_CONFIG } from '../wedding/config';
+import { useMobileReveal } from '../hooks/useMobileReveal';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,6 +14,7 @@ export const HeroSection: FC = () => {
   const floralRef = useRef<HTMLDivElement>(null);
   const { t, language } = useLanguage();
   const isTamil = language === 'ta';
+  useMobileReveal(sectionRef, ['.hero-section__content > *', '.hero-section__image-wrapper']);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -20,8 +22,9 @@ export const HeroSection: FC = () => {
     const image = imageRef.current;
     if (!section || !content || !image || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+    const mm = gsap.matchMedia();
     const ctx = gsap.context(() => {
-      gsap.from([image, ...Array.from(content.children)], {
+      mm.add('(min-width: 1024px)', () => gsap.from([image, ...Array.from(content.children)], {
         y: 20,
         opacity: 0,
         stagger: 0.08,
@@ -32,10 +35,10 @@ export const HeroSection: FC = () => {
           start: 'top 84%',
           once: true,
         },
-      });
+      }));
     }, section);
 
-    return () => ctx.revert();
+    return () => { ctx.revert(); mm.revert(); };
   }, []);
 
   return (

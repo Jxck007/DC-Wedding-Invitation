@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLanguage } from '../hooks/useLanguage';
 import { WEDDING_CONFIG } from '../wedding/config';
+import { useMobileReveal } from '../hooks/useMobileReveal';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,6 +12,7 @@ export const BrideSection: FC = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const { t, language } = useLanguage();
   const isTamil = language === 'ta';
+  useMobileReveal(sectionRef, ['.bride-section__content > *', '.bride-section__image-wrapper']);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -18,8 +20,9 @@ export const BrideSection: FC = () => {
     const image = section?.querySelector('.bride-section__image-wrapper');
     if (!section || !content || !image || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+    const mm = gsap.matchMedia();
     const ctx = gsap.context(() => {
-      gsap.from([image, ...Array.from(content.children)], {
+      mm.add('(min-width: 1024px)', () => gsap.from([image, ...Array.from(content.children)], {
         y: 20,
         opacity: 0,
         stagger: 0.08,
@@ -30,17 +33,17 @@ export const BrideSection: FC = () => {
           start: 'top 84%',
           once: true,
         },
-      });
+      }));
     }, section);
 
-    return () => ctx.revert();
+    return () => { ctx.revert(); mm.revert(); };
   }, []);
 
   return (
     <section ref={sectionRef} id="story" className="bride-section" aria-label={t('bride', 'title')}>
       <div className="bride-section__container">
         {/* Image */}
-        <div className="bride-section__image-wrapper">
+        <div className="bride-section__image-wrapper wedding-artwork wedding-artwork--bride">
           <div className="bride-section__image-frame">
             <img
               src={WEDDING_CONFIG.assets.couple.brideSolo}

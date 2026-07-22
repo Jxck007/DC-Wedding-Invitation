@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLanguage } from '../hooks/useLanguage';
 import { WEDDING_CONFIG } from '../wedding/config';
+import { useMobileReveal } from '../hooks/useMobileReveal';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,6 +12,7 @@ export const BlessingMessage: FC = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const { t, language } = useLanguage();
   const isTamil = language === 'ta';
+  useMobileReveal(sectionRef, ['.blessing-section__content > *', '.blessing-section__image-wrapper']);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -18,8 +20,9 @@ export const BlessingMessage: FC = () => {
     const image = section?.querySelector('.blessing-section__image-wrapper');
     if (!section || !content || !image || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+    const mm = gsap.matchMedia();
     const ctx = gsap.context(() => {
-      gsap.from([image, content], {
+      mm.add('(min-width: 1024px)', () => gsap.from([image, content], {
         y: 18,
         opacity: 0,
         duration: 0.75,
@@ -30,10 +33,10 @@ export const BlessingMessage: FC = () => {
           start: 'top 84%',
           once: true,
         },
-      });
+      }));
     }, section);
 
-    return () => ctx.revert();
+    return () => { ctx.revert(); mm.revert(); };
   }, []);
 
   return (
@@ -52,7 +55,7 @@ export const BlessingMessage: FC = () => {
         </div>
 
         <div ref={contentRef} className="blessing-section__content">
-          <img src={WEDDING_CONFIG.assets.icons.blessings} alt="" className="blessing-section__emblem" aria-hidden="true" />
+          <img src={WEDDING_CONFIG.assets.icons.finalBlessing} alt="" className="blessing-section__emblem" aria-hidden="true" />
           <h2 className={`blessing-section__title ${isTamil ? 'blessing-section__title--ta' : ''}`}>
             {t('blessing', 'title')}
           </h2>

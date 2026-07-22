@@ -1,10 +1,13 @@
-import { type FC } from 'react';
+import { type FC, useRef } from 'react';
 import { useLanguage } from '../hooks/useLanguage';
+import { useMobileReveal } from '../hooks/useMobileReveal';
 import { WEDDING_CONFIG } from '../wedding/config';
 
 export const Footer: FC = () => {
+  const footerRef = useRef<HTMLElement>(null);
   const { t, language } = useLanguage();
-  return <footer id="footer" className="footer" role="contentinfo">
+  useMobileReveal(footerRef, ['.footer__container'], false, 'top 92%');
+  return <footer ref={footerRef} id="footer" className="footer" role="contentinfo">
     <div className="footer__bg"><img src={WEDDING_CONFIG.assets.backgrounds.floralFooter} alt="" className="footer__floral" aria-hidden="true" /></div>
     <div className="footer__container">
       <div className="footer__monogram" aria-hidden="true">{WEDDING_CONFIG.monogram[language]}</div>

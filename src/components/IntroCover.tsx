@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLanguage } from '../hooks/useLanguage';
 import { useReducedMotion } from '../hooks/useReducedMotion';
+import { useMobileReveal } from '../hooks/useMobileReveal';
 import { WEDDING_CONFIG } from '../wedding/config';
 
 export const IntroCover: FC = () => {
@@ -11,6 +12,7 @@ export const IntroCover: FC = () => {
   const { t, language } = useLanguage();
   const reduced = useReducedMotion();
   const isTamil = language === 'ta';
+  useMobileReveal(coverRef, ['.intro-cover__invitation'], true);
 
   useEffect(() => {
     const el = coverRef.current;
