@@ -430,7 +430,6 @@ to{opacity:1}
 @media(max-width:767px){.intro-cover{min-height:0}
 .intro-cover__content{min-height:100svh}
 .journey-stage{grid-template-columns:1fr;gap:22px}
-.journey-stage__copy::after{content:'';display:block;width:1px;height:34px;margin:18px auto 0;background:var(--gold)}
 .venue-section__route-events{gap:8px}
 .venue-section__route-events div{min-width:0}
 .venue-section__route-title{text-transform:none;letter-spacing:normal}
@@ -584,7 +583,7 @@ to{opacity:1}
 .journey-section{padding-block:64px 76px;padding-inline:clamp(18px,5vw,32px);overflow:hidden}
 .journey-stage{display:flex;flex-direction:column;gap:30px;min-height:auto;height:auto;padding:0;overflow:visible}
 .journey-stage__copy{order:1;max-width:34rem;padding:0;text-align:center}
-.journey-stage__art{width:100%;max-width:none;height:auto;margin:0;overflow:visible}
+.journey-stage__art{order:2;width:100%;max-width:none;height:auto;margin:0;overflow:visible}
 .journey-stage__image{width:min(88vw,500px);height:auto;max-width:100%;object-fit:contain;object-position:center bottom;transform:none}
 .journey-stage__ornament{position:static;margin:22px auto 0;transform:none}
 .journey-stage__line{display:none}
