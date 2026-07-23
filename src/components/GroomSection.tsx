@@ -61,10 +61,11 @@ export const GroomSection: FC = () => {
             <img
               src={WEDDING_CONFIG.assets.couple.groomSolo}
               alt={t('imageAlt', 'groom')}
-              className="groom-section__image"
-              width={500}
-              height={650}
+              className="groom-section__image groom-artwork"
+              width={1024}
+              height={1536}
               loading="lazy"
+              decoding="async"
             />
           </div>
           {/* Temple leaf decorative element */}

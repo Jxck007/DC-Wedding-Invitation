@@ -68,9 +68,10 @@ export const HeroSection: FC = () => {
               src={WEDDING_CONFIG.assets.couple.heroNamaste}
               alt={t('imageAlt', 'hero')}
               className="hero-section__image"
-              width={600}
-              height={750}
+              width={1086}
+              height={1448}
               fetchPriority="high"
+              decoding="async"
             />
           </div>
           {/* Gold halo */}

@@ -1,3 +1,7 @@
+export const ASSET_VERSION = '2026-07-23-01';
+
+const withVersion = (path: string) => `${path}?v=${ASSET_VERSION}`;
+
 export const WEDDING_CONFIG = {
   couple: {
     groom: { name: { en: 'Dinesh Kumar', ta: 'தினேஷ் குமார்' }, initial: 'D' },
@@ -38,12 +42,12 @@ export const WEDDING_CONFIG = {
   assets: {
     couple: {
       // Formal invitation pose; used once in the opening story.
-      heroNamaste: '/assets/wedding/couple/hero-namaste.webp',
+      heroNamaste: withVersion('/assets/wedding/couple/hero-namaste.webp'),
       // Individual editorial portraits for the bride and groom sections.
       brideSolo: '/assets/wedding/couple/bride-solo.webp',
-      groomSolo: '/assets/wedding/couple/groom-solo.webp',
+      groomSolo: withVersion('/assets/wedding/couple/groom-solo.webp'),
       // Supporting reception portrait; intentionally framed because it has a rectangular canvas.
-      seated: '/assets/wedding/couple/couple-seated.webp',
+      seated: withVersion('/assets/wedding/couple/couple-seated.webp'),
       // Transparent interaction pose for Their Journey and the finale narrative.
       handholding: '/assets/wedding/couple/couple-handholding.webp',
       // Finale-only celebration pose.

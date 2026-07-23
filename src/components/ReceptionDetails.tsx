@@ -53,7 +53,7 @@ export const ReceptionDetails: FC = () => {
           ))}
         </div>
         <figure className="events-section__artwork">
-          <img src={WEDDING_CONFIG.assets.couple.seated} alt={t('imageAlt', 'seated')} width={1122} height={1171} loading="lazy" />
+          <img src={WEDDING_CONFIG.assets.couple.seated} alt={t('imageAlt', 'seated')} width={1122} height={1402} loading="lazy" decoding="async" />
         </figure>
         <p className="events-section__same-venue">{t('events', 'sameVenue')}</p>
       </div>
