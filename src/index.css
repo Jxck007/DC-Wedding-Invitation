@@ -736,6 +736,12 @@ to{opacity:1}
 [data-language=ta] .intro-cover__greeting,[data-language=ta] .bride-section__label,[data-language=ta] .groom-section__label,[data-language=ta] .events-section .eyebrow,[data-language=ta] .venue-section .eyebrow{letter-spacing:normal;text-transform:none}
 
 .countdown-section,.hero-section,.bride-section,.groom-section,.journey-section,.events-section,.venue-section,.blessing-section{padding-block:clamp(58px,13vw,80px);padding-inline:clamp(18px,5vw,28px)}
+.countdown__grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:0;align-items:start;width:100%}
+.countdown__item,.countdown__item:nth-child(3){min-width:0;padding:10px clamp(3px,1.5vw,10px);border-left:0}
+.countdown__item:not(:last-child){border-right:1px solid rgba(185,148,69,.28)}
+.countdown__value{font-size:clamp(2rem,8vw,2.8rem);line-height:.95}
+.countdown__label{display:block;margin-top:6px;font-size:.72rem;line-height:1.25;white-space:nowrap}
+[data-language=ta] .countdown__label{font-size:clamp(.5rem,2vw,.64rem);line-height:1.15}
 .hero-section__names{margin-bottom:14px}
 .bride-section__name,.groom-section__name{margin-bottom:14px}
 .bride-section__divider,.groom-section__divider{margin:14px 0}
@@ -762,10 +768,10 @@ to{opacity:1}
 .groom-section__image-wrapper{margin-top:28px}
 .bride-section__image-frame,.groom-section__image-frame{display:flex;width:100%;align-items:flex-end;justify-content:center;overflow:visible}
 .groom-section__image-frame{padding-top:0}
-.wedding-artwork--bride{--artwork-scale:.9;--artwork-y:0px;--artwork-max-height:500px;--artwork-max-width:min(76vw,390px)}
-.wedding-artwork--groom{--artwork-scale:1.08;--artwork-y:0px;--artwork-max-height:540px;--artwork-max-width:min(84vw,430px)}
+.wedding-artwork--bride{--artwork-scale:1;--artwork-y:0px;--artwork-max-height:500px;--artwork-max-width:min(74vw,350px)}
+.wedding-artwork--groom{--artwork-scale:1;--artwork-y:0px;--artwork-max-height:470px;--artwork-max-width:min(78vw,360px)}
 .wedding-artwork .bride-section__image,.wedding-artwork .groom-section__image{width:var(--artwork-max-width);height:auto;max-width:100%;max-height:var(--artwork-max-height);object-fit:contain;object-position:center bottom;transform:translateY(var(--artwork-y)) scale(var(--artwork-scale));transform-origin:center bottom}
-.wedding-artwork .groom-artwork{width:min(84vw,430px);height:auto;max-width:100%;max-height:540px;object-fit:contain;object-position:center bottom;transform-origin:center bottom}
+.wedding-artwork .groom-artwork{width:min(78vw,360px);height:auto;max-width:100%;max-height:470px;object-fit:contain;object-position:center bottom;transform-origin:center bottom}
 .groom-section__leaf{display:none}
 
 .journey-section{min-height:auto;overflow:hidden}
